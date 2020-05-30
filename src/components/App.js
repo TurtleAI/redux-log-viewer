@@ -4,24 +4,35 @@ import styled from 'styled-components';
 import ErrorBoundary from '../helpers/ErrorBoundary';
 import Provider from '../helpers/Provider';
 import { GlobalCSS } from '../settings/_global.style';
-import ActionItem from './ActionItem';
+import ActionPreview from './ActionPreview';
+import ActionItemList from './ActionItemList';
+import Header from './Header';
 
 function App() {
   return (
-    <App.Wrapper>
+    <>
       <GlobalCSS />
       <ErrorBoundary>
         <Provider>
-          <>
-          <br />
-          <ActionItem action="LOG_OUT_USER_LOL" time="00.00.23" />
-          </>
+          <App.Wrapper>
+            <Header />
+            <App.Body>
+              <ActionItemList />
+              <ActionPreview />
+            </App.Body>
+          </App.Wrapper>
         </Provider>
       </ErrorBoundary>
-    </App.Wrapper>
+    </>
   );
 }
 
 App.Wrapper = styled.div``;
+
+App.Body = styled.div`
+  display: flex;
+  width: 100%;
+  height: 100vh;
+`;
 
 export default App;

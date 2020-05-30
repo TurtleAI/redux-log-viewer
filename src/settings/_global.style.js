@@ -11,6 +11,11 @@ export const GlobalCSS = createGlobalStyle`
     margin: 0;
     padding: 0;
     font-family: 'Source Code Pro', monospace;
+    font-weight: 300;
     background: ${BRAND_PRIMARY};
+  }
+
+  * {
+    box-sizing: border-box;
   }
 `;

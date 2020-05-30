@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
-import { BRAND_PRIMARY, BRAND_PRIMARY_HOVER, BRAND_ACCENT, BRAND_WHITE } from '../../../settings/_colors.style';
+import { BRAND_PRIMARY, BRAND_PRIMARY_HOVER, DIM_GRAY, BRAND_WHITE } from '../../../settings/_colors.style';
 
 export default function Button({ onClick, children }) {
   return (
@@ -11,12 +11,12 @@ export default function Button({ onClick, children }) {
 }
 
 Button.Wrapper = styled.button`
-  padding: 10px 14px;
+  padding: 8px 14px;
   border-style: solid;
   border-width: 1px;
   border-left-width: 0;
   background-color: ${BRAND_PRIMARY};
-  border-color: ${BRAND_ACCENT};
+  border-color: ${DIM_GRAY};
   color: ${BRAND_WHITE};
   font-family: 'Source Code Pro', monospace;
 

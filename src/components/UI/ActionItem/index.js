@@ -42,7 +42,7 @@ ActionItem.TimeDiff = styled.span`
   background-color: ${BRAND_ACCENT};
   font-size: 14px;
   color: ${GRAY};
-  padding: 4px 10px;
+  padding: 4px 8px;
   border-radius: 3px;
 `;
 
