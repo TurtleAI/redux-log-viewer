@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import FallBackUI from '../../components/FallBackUI';
+import FallBackUI from '../../components/UI/FallBackUI';
 
 export default class ErrorBoundary extends Component {
   constructor(props) {

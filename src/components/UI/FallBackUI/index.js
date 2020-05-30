@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { BRAND_WHITE } from '../../settings/_colors.style';
+import { BRAND_WHITE } from '../../../settings/_colors.style';
 
 export default function FallBackUI() {
   return (

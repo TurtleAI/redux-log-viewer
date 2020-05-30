@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import ErrorBoundary from '../helpers/ErrorBoundary';
 import Provider from '../helpers/Provider';
 import { GlobalCSS } from '../settings/_global.style';
+import ActionItem from './ActionItem';
 
 function App() {
   return (
@@ -11,7 +12,10 @@ function App() {
       <GlobalCSS />
       <ErrorBoundary>
         <Provider>
-          <h1>Turtle devTools</h1>
+          <>
+          <br />
+          <ActionItem action="LOG_OUT_USER_LOL" time="00.00.23" />
+          </>
         </Provider>
       </ErrorBoundary>
     </App.Wrapper>
