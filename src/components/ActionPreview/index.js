@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useContext, useState } from 'react';
 import styled from 'styled-components';
 
 import Button from '../UI/Button';
 import JSONStateTree from '.././UI/JSONStateTree';
+import { LogsContext } from '../../helpers/Provider';
 import { BRAND_WHITE, BRAND_SECONDARY, DIM_GRAY } from '../../settings/_colors.style';
 
 const ACTIONS = {
@@ -12,11 +13,16 @@ const ACTIONS = {
 };
 
 export default function ActionPreview() {
+  const [active, setActive] = useState(ACTIONS.STATE);
+  const { state } = useContext(LogsContext);
 
-  function handleButtonClick() {
-    return function () {
+  let data = null;
 
-    }
+  if (active === ACTIONS.ACTION) {
+    data = state.activeLog.action || {};
+  }
+  else {
+    data = state.activeLog.state || {};
   }
 
   return (
@@ -24,13 +30,13 @@ export default function ActionPreview() {
       <ActionPreview.Header>
         Diff
         <ActionPreview.ButtonsWrapper>
-          <Button onClick={handleButtonClick(ACTIONS.ACTION)}>Action</Button>
-          <Button onClick={handleButtonClick(ACTIONS.STATE)}>State</Button>
-          <Button onClick={handleButtonClick(ACTIONS.DIFF)}>Diff</Button>
+          <Button onClick={() => setActive(ACTIONS.ACTION)}>Action</Button>
+          <Button onClick={() => setActive(ACTIONS.STATE)}>State</Button>
+          <Button onClick={() => setActive(ACTIONS.DIFF)}>Diff</Button>
         </ActionPreview.ButtonsWrapper>
       </ActionPreview.Header>
       <ActionPreview.JSONTreeWrapper>
-        <JSONStateTree data={{ heelo: { me: 'yes', no: 34 }, array: [{}, {}, {}] }} />
+        <JSONStateTree data={data} />
       </ActionPreview.JSONTreeWrapper>
     </ActionPreview.Wrapper>
   );
@@ -47,7 +53,7 @@ ActionPreview.Header = styled.div`
   justify-content: space-between;
   align-items: center;
   color: ${BRAND_WHITE};
-  padding: 5px 14px;
+  padding: 8px 14px;
   background-color: ${BRAND_SECONDARY};
   border-bottom: 1px solid ${DIM_GRAY};
 `;

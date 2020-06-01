@@ -1,0 +1,3 @@
+{"action": { "type": "ADD_TODO", "payload": "Style Button" }, "state": { "todos": ["Style Button"], "selectedTodo": "Style Button" }, "time": "" }
+{"action": { "type": "ADD_TODO", "payload": "Style FileInput" }, "state": { "todos": ["Style Button", "Style FileInput"], "selectedTodo": "Style FileInput" }, "time": "" }
+{"action": { "type": "ADD_TODO", "payload": "Style ActionItem" }, "state": { "todos": ["Style Button", "Style FileInput", "Style ActionItem"], "selectedTodo": "Style ActionItem" }, "time": "" }

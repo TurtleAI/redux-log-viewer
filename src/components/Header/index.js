@@ -1,17 +1,20 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components';
 
 import FileInput from '../UI/FileInput';
+import { LogsContext } from '../../helpers/Provider';
 import { BRAND_WHITE } from '../../settings/_colors.style';
 
 export default function Header() {
+  const { actions, state } = useContext(LogsContext);
+
   return (
     <Header.Wrapper>
       <Header.Text>
         Turtle DevTools
       </Header.Text>
       <Header.InputWrapper>
-        <FileInput />
+        <FileInput onChange={actions.resetLogs} />
       </Header.InputWrapper>
     </Header.Wrapper>
   );

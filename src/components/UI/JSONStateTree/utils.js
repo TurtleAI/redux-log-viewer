@@ -2,8 +2,11 @@ import React from 'react';
 
 const diffStyle = { backgroundColor: '#5D7148', padding: '0 5px', borderRadius: '3px', color: '#fff' };
 
-function formatValueStructure(isArray = false) {
-  return isArray ? '[...]' : '{...}';
+function formatValueStructure(value, isArray = false) {
+  if (isArray) {
+    return value.length > 0 ? '[...]' : '[]';
+  }
+  return Object.keys(value).length > 0 ? '{...}' : '{}';
 }
 
 function insertString(string, value) {
@@ -17,16 +20,16 @@ function formatObject(obj) {
   if (isArray) {
     text = obj.reduce((string, item) => {
       if (typeof item === 'object') {
-        if (Array.isArray(item)) return insertString(string, `${formatValueStructure(true)}`);
-        return insertString(string, `${formatValueStructure()}`);
+        if (Array.isArray(item)) return insertString(string, `${formatValueStructure(item, true)}`);
+        return insertString(string, `${formatValueStructure(item)}`);
       }
-      return insertString(string, `${item}`);
+      return insertString(string, `${typeof item === 'string' ? `"${item}"` : `${item}`}`);
     }, '');
   } else {
     text = Object.keys(obj).reduce((string, key) => {
       if (typeof obj[key] === 'object') {
-        if (Array.isArray(obj[key])) return insertString(string, `${key}: ${formatValueStructure(true)}`);
-        return insertString(string, `${key}: ${formatValueStructure()}`);
+        if (Array.isArray(obj[key])) return insertString(string, `${key}: ${formatValueStructure(obj[key], true)}`);
+        return insertString(string, `${key}: ${formatValueStructure(obj[key])}`);
       }
       return insertString(string, `${key}: ${typeof obj[key] === 'string' ? `"${obj[key]}"` : `${obj[key]}`}`);
     }, '');

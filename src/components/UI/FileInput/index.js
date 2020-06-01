@@ -10,7 +10,13 @@ export default function FileInput({ onChange }) {
     const reader = new FileReader();
     reader.onload = function () {
       const logs = this.result.split('\n');
-      onChange && onChange(logs);
+      const actions = [];
+      logs.forEach((log) => {
+        if (log.length && log.includes('action')) {
+          actions.push(JSON.parse(log));
+        }
+      });
+      onChange && onChange(actions);
       files[0] && setText(files[0].name)
     };
     reader.readAsText(files[0]);
@@ -38,12 +44,14 @@ FileInput.Wrapper = styled.span`
 
 FileInput.Input = styled.input`
   width: 100%;
+  height: 100%;
   position: absolute;
   top: 0;
   left: 0;
   bottom: 0;
   right: 0;
   z-index: 1;
+  font-size: 0px;
 
   &::-webkit-file-upload-button {
     display: none;

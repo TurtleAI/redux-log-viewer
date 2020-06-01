@@ -11,7 +11,7 @@ export default function reducer(state, action) {
       return {
         ...state,
         logs: action.payload,
-        activeLog: state.logs[action.payload.length - 1],
+        activeLog: action.payload[action.payload.length - 1],
       };
 
     case SET_ACTIVE_LOG:

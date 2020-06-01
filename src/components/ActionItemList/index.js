@@ -1,20 +1,18 @@
-import React, { useState } from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components';
-import PropTypes from 'prop-types';
 
 import ActionItem from '../UI/ActionItem';
+import { LogsContext } from '../../helpers/Provider';
 import { DIM_GRAY } from '../../settings/_colors.style';
 
-export default function ActionItemList({ }) {
+export default function ActionItemList() {
+  const { state } = useContext(LogsContext);
+
   return (
     <ActionItemList.Wrapper>
-      <ActionItem action="LOGIN_TO_VIEW_HOME" time="0.00.35" />
-      <ActionItem action="LOGIN_TO_VIEW_HOME" time="0.00.35" />
-      <ActionItem action="LOGIN_TO_VIEW_HOME" time="0.00.35" />
-      <ActionItem action="LOGIN_TO_VIEW_HOME" time="0.00.35" />
-      <ActionItem action="LOGIN_TO_VIEW_HOME" time="0.00.35" />
-      <ActionItem action="LOGIN_TO_VIEW_HOME" time="0.00.35" />
-      <ActionItem action="LOGIN_TO_VIEW_HOME" time="0.00.35" />
+      {
+        state.logs.map((log, idx) => (<ActionItem key={log.action.type + idx} action={log.action.type} time="0.00.35" />))
+      }
     </ActionItemList.Wrapper>
   );
 }

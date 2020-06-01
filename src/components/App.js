@@ -32,7 +32,7 @@ App.Wrapper = styled.div``;
 App.Body = styled.div`
   display: flex;
   width: 100%;
-  height: 100vh;
+  height: calc(100vh - 41.9886px);
 `;
 
 export default App;
