@@ -6,12 +6,12 @@ import { LogsContext } from '../../helpers/Provider';
 import { BRAND_WHITE } from '../../settings/_colors.style';
 
 export default function Header() {
-  const { actions, state } = useContext(LogsContext);
+  const { actions } = useContext(LogsContext);
 
   return (
     <Header.Wrapper>
       <Header.Text>
-        Turtle DevTools
+        Redux Log Viewer
       </Header.Text>
       <Header.InputWrapper>
         <FileInput onChange={actions.resetLogs} />

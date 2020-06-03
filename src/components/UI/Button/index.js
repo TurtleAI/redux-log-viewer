@@ -4,9 +4,9 @@ import PropTypes from 'prop-types';
 
 import { BRAND_PRIMARY, BRAND_PRIMARY_HOVER, DIM_GRAY, BRAND_WHITE } from '../../../settings/_colors.style';
 
-export default function Button({ onClick, children }) {
+export default function Button({ onClick, children, isActive }) {
   return (
-    <Button.Wrapper onClick={onClick}>{children}</Button.Wrapper>
+    <Button.Wrapper isActive={isActive} onClick={onClick}>{children}</Button.Wrapper>
   );
 }
 
@@ -19,6 +19,8 @@ Button.Wrapper = styled.button`
   border-color: ${DIM_GRAY};
   color: ${BRAND_WHITE};
   font-family: 'Source Code Pro', monospace;
+
+  ${({ isActive }) => isActive && `background-color: ${BRAND_PRIMARY_HOVER};`}
 
   &:hover {
     cursor: pointer;
@@ -40,4 +42,5 @@ Button.Wrapper = styled.button`
 Button.propTypes = {
   onClick: PropTypes.func.isRequired,
   children: PropTypes.node.isRequired,
+  isActive: PropTypes.bool,
 };

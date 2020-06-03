@@ -10,12 +10,12 @@ import {
   GRAY,
 } from '../../../settings/_colors.style';
 
-export default function ActionItem({ isActive, action, time }) {
+export default function ActionItem({ isActive, action, time, onClick }) {
   return (
-    <ActionItem.Wrapper isActive={isActive}>
+    <ActionItem.Wrapper isActive={isActive} onClick={onClick}>
       {action}
       <ActionItem.TimeDiff>
-        +{time}
+        {time}
       </ActionItem.TimeDiff>
     </ActionItem.Wrapper>
   );
@@ -50,4 +50,5 @@ ActionItem.propTypes = {
   isActive: PropTypes.bool,
   action: PropTypes.string.isRequired,
   time: PropTypes.string.isRequired,
+  onClick: PropTypes.func.isRequired,
 };

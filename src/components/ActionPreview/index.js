@@ -5,38 +5,48 @@ import Button from '../UI/Button';
 import JSONStateTree from '.././UI/JSONStateTree';
 import { LogsContext } from '../../helpers/Provider';
 import { BRAND_WHITE, BRAND_SECONDARY, DIM_GRAY } from '../../settings/_colors.style';
+import { compareStateDiff } from './utils';
 
 const ACTIONS = {
-  STATE: 'STATE',
-  ACTION: 'ACTION',
-  DIFF: 'DIFF',
+  STATE: 'State',
+  ACTION: 'Action',
+  DIFF: 'Diff',
 };
 
 export default function ActionPreview() {
-  const [active, setActive] = useState(ACTIONS.STATE);
+  const [active, setActive] = useState(ACTIONS.DIFF);
   const { state } = useContext(LogsContext);
 
-  let data = null;
+  let data = {};
 
-  if (active === ACTIONS.ACTION) {
-    data = state.activeLog.action || {};
-  }
-  else {
-    data = state.activeLog.state || {};
+  switch (active) {
+    case ACTIONS.ACTION:
+      data = state.activeLog.action || 'No action to display.';
+      break;
+    case ACTIONS.DIFF:
+      data = compareStateDiff(state);
+      break;
+    default:
+      data = state.activeLog.state || 'No state to display.';
+      break;
   }
 
   return (
     <ActionPreview.Wrapper>
       <ActionPreview.Header>
-        Diff
+        {active}
         <ActionPreview.ButtonsWrapper>
-          <Button onClick={() => setActive(ACTIONS.ACTION)}>Action</Button>
-          <Button onClick={() => setActive(ACTIONS.STATE)}>State</Button>
-          <Button onClick={() => setActive(ACTIONS.DIFF)}>Diff</Button>
+          <Button isActive={active === ACTIONS.ACTION} onClick={() => setActive(ACTIONS.ACTION)}>Action</Button>
+          <Button isActive={active === ACTIONS.STATE} onClick={() => setActive(ACTIONS.STATE)}>State</Button>
+          <Button isActive={active === ACTIONS.DIFF} onClick={() => setActive(ACTIONS.DIFF)}>Diff</Button>
         </ActionPreview.ButtonsWrapper>
       </ActionPreview.Header>
       <ActionPreview.JSONTreeWrapper>
-        <JSONStateTree data={data} />
+        {
+          typeof data === 'string'
+            ? <ActionPreview.EqualStateText>{data}</ActionPreview.EqualStateText>
+            : <JSONStateTree data={data} isDiff={active === ACTIONS.DIFF} />
+        }
       </ActionPreview.JSONTreeWrapper>
     </ActionPreview.Wrapper>
   );
@@ -64,4 +74,11 @@ ActionPreview.ButtonsWrapper = styled.span`
 
 ActionPreview.JSONTreeWrapper = styled.div`
   padding: 3px;
+`;
+
+ActionPreview.EqualStateText = styled.span`
+  margin: 20px;
+  display: inline-block;
+  color: ${BRAND_WHITE};
+  text-decoration: underline;
 `;

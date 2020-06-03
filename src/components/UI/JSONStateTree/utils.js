@@ -40,13 +40,25 @@ function formatObject(obj) {
 
 export function getItemString(isDiff) {
   return function (_, data) {
-    return <span style={isDiff ? diffStyle : { color: '#C8A085' }}>{formatObject(data)}</span>;
+    return <span style={isDiff ? {} : { color: '#C8A085' }}>{formatObject(data)}</span>;
   }
 }
 
 export function valueRenderer(isDiff) {
   return function (_, raw) {
-    return <span style={isDiff && diffStyle}>{typeof raw === 'string' ? `"${raw}"` : raw}</span>;
+    if (raw.includes('[[primitive]]')) {
+      const [label, value] = raw.split('[[primitive]]');
+      
+      return (
+        <>
+          <span style={{ ...diffStyle, backgroundColor: '#855F6C' }}>{label}</span>
+          <span style={{ color: '#C57AB7', padding: '0 10px' }}>=></span>
+          <span style={diffStyle}>{value}</span>
+        </>
+      );
+    }
+
+    return <span style={isDiff ? diffStyle : {}}>{typeof raw === 'string' ? `"${raw}"` : raw}</span>;
   }
 }
 
