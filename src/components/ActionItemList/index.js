@@ -3,12 +3,11 @@ import styled from 'styled-components';
 import dateFormat from 'dateformat';
 
 import ActionItem from '../UI/ActionItem';
-import { LogsContext } from '../../helpers/Provider';
+import { LogsContext } from '../../Providers/LogsProvider';
 import { DIM_GRAY } from '../../settings/_colors.style';
 
 function getTimeStamp(logs, index) {
   if (index === 0) return '+00:00:00';
-  console.log(new Date(logs[index].time).getTime() - new Date(logs[index -1].time).getTime(), 'time delta ------')
   return dateFormat(new Date(logs[index].time).getTime() - new Date(logs[index -1].time).getTime(), '+MM:ss.L');
 }
 

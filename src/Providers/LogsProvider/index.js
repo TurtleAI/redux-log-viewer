@@ -1,7 +1,7 @@
 import React, { createContext, useReducer } from 'react';
 
 import reducer, { initialState } from './reducer';
-import { resetLogs, setActiveLog } from './actions';
+import { resetLogs, setActiveLog, setFileFormatType, setCustomRowHandler } from './actions';
 
 export const LogsContext = createContext({});
 
@@ -17,7 +17,13 @@ export default function LogsProvider({ children }) {
         },
         resetLogs(logs) {
           dispatch(resetLogs(logs));
-        }
+        },
+        setFileFormatType(value) {
+          dispatch(setFileFormatType(value));
+        },
+        setCustomRowHandler(customRowHandler) {
+          dispatch(setCustomRowHandler(customRowHandler))
+        },
       }
     };
   }

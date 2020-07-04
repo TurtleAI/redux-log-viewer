@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 import Button from '../UI/Button';
 import JSONStateTree from '.././UI/JSONStateTree';
-import { LogsContext } from '../../helpers/Provider';
+import { LogsContext } from '../../Providers/LogsProvider';
 import { BRAND_WHITE, BRAND_SECONDARY, DIM_GRAY } from '../../settings/_colors.style';
 import { compareStateDiff } from './utils';
 

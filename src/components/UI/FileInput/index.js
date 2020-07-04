@@ -1,30 +1,14 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
 import { BRAND_ACCENT, BRAND_WHITE } from '../../../settings/_colors.style';
 
-export default function FileInput({ onChange }) {
-  const [text, setText] = useState('Upload a file to browse logs from');
-  function handleFileChange({ target: { files } }) {
-    const reader = new FileReader();
-    reader.onload = function () {
-      const logs = this.result.split('\n');
-      const actions = [];
-      logs.forEach((log) => {
-        if (log.length && log.includes('action')) {
-          actions.push(JSON.parse(log));
-        }
-      });
-      onChange && onChange(actions);
-      files[0] && setText(files[0].name)
-    };
-    reader.readAsText(files[0]);
-  }
+export default function FileInput({ onChange, text }) {
 
   return (
     <FileInput.Wrapper>
-      <FileInput.Input type="file" onChange={handleFileChange} />
+      <FileInput.Input type="file" onChange={onChange} />
       <FileInput.Text>{text}</FileInput.Text>
       ▼
     </FileInput.Wrapper>
@@ -32,6 +16,7 @@ export default function FileInput({ onChange }) {
 }
 
 FileInput.Wrapper = styled.span`
+  width: 100%;
   color: ${BRAND_WHITE};
   position: relative;
   display: flex;
@@ -70,4 +55,5 @@ FileInput.Text = styled.span`
 
 FileInput.propTypes = {
   onChange: PropTypes.func.isRequired,
+  rowHandler: PropTypes.func,
 };

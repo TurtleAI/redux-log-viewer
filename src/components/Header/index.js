@@ -1,12 +1,49 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 
 import FileInput from '../UI/FileInput';
-import { LogsContext } from '../../helpers/Provider';
+import DropDown from '../UI/DropDown';
+import { LogsContext } from '../../Providers/LogsProvider';
+import { NotificationContext } from '../../Providers/NotificationProvider';
 import { BRAND_WHITE } from '../../settings/_colors.style';
+import { validateLogFormat } from './utils';
+import { NOTIFICATION_TYPES } from '../../utils/constants';
 
-export default function Header() {
-  const { actions } = useContext(LogsContext);
+export default function Header({ handleFormatTypeChange }) {
+  const [text, setText] = useState('Upload a file to browse logs from');
+  const { actions, state } = useContext(LogsContext);
+  const { actions: notificationActions } = useContext(NotificationContext);
+
+  function handleFileChange({ target: { files } }) {
+    const reader = new FileReader();
+    reader.onload = function () {
+      const logs = this.result.split('\n');
+      const logActions = [];
+
+      try {
+        logs.forEach((log) => {
+          if (log.length) {
+            if (state.customRowHandler) {
+              logActions.push(validateLogFormat(state.customRowHandler(log)));
+            } else {
+              logActions.push(validateLogFormat(JSON.parse(log)));
+            }
+          }
+        });
+
+        actions.resetLogs(logActions);
+        files[0] && setText(files[0].name);
+      } catch (error) {
+        notificationActions.showNotification({
+          type: NOTIFICATION_TYPES.ERROR,
+          message: error.message,
+          duration: 10000,
+        });
+      }
+    };
+    reader.readAsText(files[0]);
+  }
 
   return (
     <Header.Wrapper>
@@ -14,7 +51,8 @@ export default function Header() {
         Redux Log Viewer
       </Header.Text>
       <Header.InputWrapper>
-        <FileInput onChange={actions.resetLogs} />
+        <DropDown onChange={handleFormatTypeChange(actions.setFileFormatType)} value={state.formatType} />
+        <FileInput text={text} onChange={handleFileChange} />
       </Header.InputWrapper>
     </Header.Wrapper>
   );
@@ -36,4 +74,10 @@ Header.Text = styled.span`
 
 Header.InputWrapper = styled.span`
   width: 60%;
+  display: flex;
+  flex-direction: column;
 `;
+
+Header.propTypes = {
+  handleFormatTypeChange: PropTypes.func.isRequired,
+};

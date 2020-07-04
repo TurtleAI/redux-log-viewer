@@ -6,3 +6,4 @@ export const BRAND_ACCENT = '#474C55';
 export const ROSY_BROWN = '#C8A085';
 export const GRAY = '#B0B0B0';
 export const DIM_GRAY = '#7F8185';
+export const CRIMSON = '#F22E46';
