@@ -7,7 +7,6 @@ export const NotificationContext = createContext({});
 
 export default function NotificationProvider({ children }) {
   const [state, dispatch] = useReducer(reducer, initialState);
-  console.log(state, 'state ---------')
 
   function createContextValue() {
     return {

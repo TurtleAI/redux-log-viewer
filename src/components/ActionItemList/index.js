@@ -7,7 +7,7 @@ import { LogsContext } from '../../Providers/LogsProvider';
 import { DIM_GRAY } from '../../settings/_colors.style';
 
 function getTimeStamp(logs, index) {
-  if (index === 0) return '+00:00:00';
+  if (index === 0 || !logs[index].time) return '+00:00:00';
   return dateFormat(new Date(logs[index].time).getTime() - new Date(logs[index -1].time).getTime(), '+MM:ss.L');
 }
 
@@ -44,4 +44,5 @@ ActionItemList.Wrapper = styled.ul`
   margin: 0;
   padding: 0;
   border-right: 1px solid ${DIM_GRAY};
+  overflow-y: scroll;
 `;

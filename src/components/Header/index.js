@@ -9,6 +9,9 @@ import { NotificationContext } from '../../Providers/NotificationProvider';
 import { BRAND_WHITE } from '../../settings/_colors.style';
 import { validateLogFormat } from './utils';
 import { NOTIFICATION_TYPES } from '../../utils/constants';
+import { DEFAULT_FORMAT_TYPE, CUSTOM_FORMAT_TYPE, ACTION_STRING_MAP_FORMAT_TYPE } from '../../utils/constants';
+
+const formatOptions = [DEFAULT_FORMAT_TYPE, ACTION_STRING_MAP_FORMAT_TYPE, CUSTOM_FORMAT_TYPE];
 
 export default function Header({ handleFormatTypeChange }) {
   const [text, setText] = useState('Upload a file to browse logs from');
@@ -51,7 +54,7 @@ export default function Header({ handleFormatTypeChange }) {
         Redux Log Viewer
       </Header.Text>
       <Header.InputWrapper>
-        <DropDown onChange={handleFormatTypeChange(actions.setFileFormatType)} value={state.formatType} />
+        <DropDown onChange={handleFormatTypeChange(actions.setFileFormatType)} value={state.formatType} options={formatOptions} />
         <FileInput text={text} onChange={handleFileChange} />
       </Header.InputWrapper>
     </Header.Wrapper>

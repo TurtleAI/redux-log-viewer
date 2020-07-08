@@ -3,17 +3,15 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
 import { BRAND_WHITE, BRAND_ACCENT } from '../../../settings/_colors.style';
-import { DEFAULT_FORMAT_TYPE, CUSTOM_FORMAT_TYPE } from '../../../utils/constants';
+
 
 export default function DropDown({ options, value, onChange }) {
   return (
     <DropDown.Wrapper>
       <DropDown.Select value={value} onChange={onChange}>
-        <DropDown.Option value={DEFAULT_FORMAT_TYPE.value}>{DEFAULT_FORMAT_TYPE.label}</DropDown.Option>
         {
-          options.map(option => <DropDown.Option value={option.value}>{option.label}</DropDown.Option>)
+          options.map(option => <DropDown.Option key={option.value} value={option.value}>{option.label}</DropDown.Option>)
         }
-        <DropDown.Option value={CUSTOM_FORMAT_TYPE.value}>{CUSTOM_FORMAT_TYPE.label}</DropDown.Option>
       </DropDown.Select>
       <DropDown.Icon>▼</DropDown.Icon>
     </DropDown.Wrapper>

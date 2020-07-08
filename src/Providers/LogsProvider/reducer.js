@@ -1,5 +1,6 @@
 import { RESET_LOGS, SET_ACTIVE_LOG, SET_FILE_FORMAT_TYPE, SET_CUSTOM_ROW_HANDLER } from './constants';
 import { DEFAULT_FORMAT_TYPE } from '../../utils/constants';
+import { getFormatter } from '../../utils/misc';
 
 export const initialState = {
   logs: [],
@@ -30,7 +31,7 @@ export default function reducer(state, action) {
       return {
         ...state,
         formatType: action.payload,
-        customRowHandler: null,
+        customRowHandler: getFormatter(action.payload),
       };
 
     case SET_CUSTOM_ROW_HANDLER:

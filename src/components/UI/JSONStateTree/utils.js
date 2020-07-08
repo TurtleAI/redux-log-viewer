@@ -46,19 +46,19 @@ export function getItemString(isDiff) {
 
 export function valueRenderer(isDiff) {
   return function (_, raw) {
-    if (raw.includes('[[primitive]]')) {
+    if (isDiff && raw.includes('[[primitive]]')) {
       const [label, value] = raw.split('[[primitive]]');
       
       return (
         <>
           <span style={{ ...diffStyle, backgroundColor: '#855F6C' }}>{label}</span>
-          <span style={{ color: '#C57AB7', padding: '0 10px' }}>=></span>
+          <span style={{ color: '#C57AB7', padding: '0 10px' }}>{'=>'}</span>
           <span style={diffStyle}>{value}</span>
         </>
       );
     }
 
-    return <span style={isDiff ? diffStyle : {}}>{typeof raw === 'string' ? `"${raw}"` : raw}</span>;
+    return <span style={isDiff ? diffStyle : {}}>{typeof raw === 'string' ? `"${raw}"` : `${raw}`}</span>;
   }
 }
 

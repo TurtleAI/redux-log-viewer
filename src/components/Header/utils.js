@@ -5,7 +5,6 @@ export function validateLogFormat(log, errorMessage = 'Invalid log format, pleas
 
   if (
     !log.hasOwnProperty('action') ||
-    !log.hasOwnProperty('time') ||
     !log.hasOwnProperty('state')
   ) {
     throw TypeError(errorMessage);
